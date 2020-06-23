@@ -3,6 +3,7 @@ package models
 // Vulnerability is the default structure to represent a potentially
 // dangerous piece code inside the source analyzed.
 type Vulnerability struct {
+	RuleId			 string `json:"ruleID"`
 	OWASPReferenceID string `json:"owaspID"`
 	CWE              string `json:"cwe,omitempty"`
 	Severity         string `json:"severity,omitempty"`
@@ -33,8 +34,12 @@ type SASTInfo struct {
 
 // Report is a generic structure for any type of
 // report generated
-type Report struct {
+type SASTReport struct {
 	Info            SASTInfo        `json:"information,omitempty"`
+	*Report
+}
+
+type Report struct {
 	Vulnerabilities []Vulnerability `json:"vulnerabilities,omitempty"`
 	Libraries       []Library       `json:"libraries,omitempty"`
 }

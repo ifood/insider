@@ -1,10 +1,10 @@
 package lexer
 
 import (
+	"github.com/insidersec/insider/models"
 	"regexp"
 	"sort"
 	"strings"
-	"github.com/insidersec/insider/models"
 )
 
 var scopeFinder *regexp.Regexp

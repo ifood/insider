@@ -47,13 +47,12 @@ type ManifestPermission struct {
 }
 
 type AndroidReport struct {
-	AndroidInfo             AndroidInfo          `json:"android,omitempty"`
 	BrowsableActivities     []BrowsableActivity  `json:"browsableActivities,omitempty"`
-	Vulnerabilities         []Vulnerability      `json:"vulnerabilities,omitempty"`
 	Services                []Service            `json:"services,omitempty"`
 	BroadcastReceivers      []BroadcastReceiver  `json:"receivers,omitempty"`
 	AvailableActivities     []Activity           `json:"activities,omitempty"`
-	Libraries               []Library            `json:"libraries,omitempty"`
 	ManifestVulnerabilities []ManifestEntry      `json:"manifest,omitempty"`
 	ManifestPermissions     []ManifestPermission `json:"permissions,omitempty"`
+	AndroidInfo             AndroidInfo          `json:"android,omitempty"`
+	Report
 }

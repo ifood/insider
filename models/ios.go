@@ -24,8 +24,10 @@ type IOSPermission struct {
 
 // IOSReport is the representation of the iOS report
 type IOSReport struct {
-	IOSInfo         IOSInfo         `json:"ios"`
-	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
-	Libraries       []Library       `json:"libraries"`
 	Permissions     []IOSPermission `json:"permissions"`
+
+	IOSInfo         IOSInfo         `json:"ios"`
+
+
+	*Report
 }

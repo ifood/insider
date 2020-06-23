@@ -16,6 +16,7 @@ var ios []Rule = []Rule{
 		Severity:         "high",
 		CWE:              "CWE-295",
 		OWASPReferenceID: "M3",
+		ID:               "Insider-IOS1",
 	},
 	{
 		Description:   "O UIWebView no aplicativo ignora erros de SSL e aceita qualquer certificado SSL. O aplicativo é vulnerável a ataques do MITM (Man-In-The-Middle).",
@@ -23,6 +24,7 @@ var ios []Rule = []Rule{
 		ExactMatch:    "setAllowsAnyHTTPSCertificate:\\s*YES|allowsAnyHTTPSCertificateForHost|loadingUnvalidatedHTTPSPage\\s*=\\s*(YES|yes)",
 		Severity:      "high",
 		CWE:           "CWE-295",
+		ID:            "Insider-IOS2",
 	},
 	{
 		Description:   "O binário pode usar a função NSLog para registro em log. As informações confidenciais nunca devem ser registradas.",
@@ -30,11 +32,13 @@ var ios []Rule = []Rule{
 		ExactMatch:    "NSLog|NSAssert|fprintf|fprintf|Logging",
 		Severity:      "info",
 		CWE:           "CWE-532",
+		ID:            "Insider-IOS3",
 	},
 	{
 		Description: "O aplicativo permite listar as alterações no Clipboard. Alguns malwares também listam alterações no Clipboard.",
 		ExactMatch:  "UIPasteboardChangedNotification|generalPasteboard\\]\\.string",
 		Severity:    "info",
+		ID:          "Insider-IOS4",
 	},
 	{
 		Description: "A entrada do usuário não sanitizada em 'loadHTMLString' pode resultar em uma injeção de JavaScript no contexto do seu aplicativo, permitindo acesso a dados privados.",
@@ -45,6 +49,7 @@ var ios []Rule = []Rule{
 		},
 		Severity: "info",
 		CWE:      "CWE-95",
+		ID:       "Insider-IOS5",
 	},
 	{
 		Description:   "MD5 é um hash fraco, podendo gerar hashs repitidos.",
@@ -57,6 +62,7 @@ var ios []Rule = []Rule{
 		Severity:         "high",
 		CWE:              "CWE-327",
 		OWASPReferenceID: "M5",
+		ID:               "Insider-IOS6",
 	},
 	{
 		Description:   "SHA1 é um hash fraco, podendo gerar hashs repitidos.",
@@ -69,6 +75,7 @@ var ios []Rule = []Rule{
 		Severity:         "high",
 		CWE:              "CWE-327",
 		OWASPReferenceID: "M5",
+		ID:               "Insider-IOS7",
 	},
 	{
 		Description:   "O aplicativo usa o modo ECB no algoritmo de criptografia. Sabe-se que o modo ECB é fraco, pois resulta no mesmo texto cifrado para blocos idênticos de texto sem formatação.",
@@ -80,6 +87,7 @@ var ios []Rule = []Rule{
 		},
 		Severity: "high",
 		CWE:      "CWE-327",
+		ID:       "Insider-IOS8",
 	},
 	{
 		Description: "O aplicativo pode conter mecanismos de detecção de Jailbreak.",
@@ -121,5 +129,6 @@ var ios []Rule = []Rule{
 			"frida-server",
 		},
 		Severity: "info",
+		ID:       "Insider-IOS9",
 	},
 }

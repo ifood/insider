@@ -12,6 +12,7 @@ var core []Rule = []Rule{
 		Recomendation: "Credenciais não devem ser armazenadas no código ou repositório GIT, um atacante poderia descompilar a aplicação e obter a credencial. Existem soluções de ‘Secrets Management’ que podem ser utilizados para armazenar segredos ou utilizar recursos da Pipeline.",
 		Severity:      "alta",
 		CWE:           "CWE-312",
+		ID:            "Insider-CORE1",
 	},
 	{
 		ExactMatch:    "\\d{2,3}\\.\\d{2,3}\\.\\d{2,3}\\.\\d{2,3}",
@@ -19,18 +20,21 @@ var core []Rule = []Rule{
 		Recomendation: "Existem soluções de ‘Secrets Management’ que podem ser utilizados para armazenar segredos.",
 		Severity:      "info",
 		CWE:           "CWE-200",
+		ID:            "Insider-CORE2",
 	},
 	{
 		ExactMatch:  "\\d{2,3}\\.\\d{2,3}\\.\\d{2,3}\\-\\d{1,2}",
 		Description: "Possível documento pessoal hardcoded (CPF)",
 		Severity:    "info",
 		CWE:         "CWE-359",
+		ID:          "Insider-CORE3",
 	},
 	{
 		ExactMatch:  "(?mi)\\d{1,2}\\.\\d{2,3}\\.\\d{2,3}-[0-9|x]",
 		Description: "Possível documento pessoal hardcoded (RG)",
 		Severity:    "info",
 		CWE:         "CWE-359",
+		ID:          "Insider-CORE4",
 	},
 	{
 		Description:   "Arquivo contém informação sensível escrita diretamente, como nomes de usuário, senhas, chaves , etc.",
@@ -38,6 +42,7 @@ var core []Rule = []Rule{
 		ExactMatch:    "(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}",
 		Severity:      "alta",
 		CWE:           "CWE-312",
+		ID:            "Insider-CORE5",
 	},
 	{
 		Description:   "Arquivo contém informação sensível escrita diretamente, como nomes de usuário, senhas, chaves , etc.",
@@ -45,6 +50,7 @@ var core []Rule = []Rule{
 		ExactMatch:    "(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z/+]{40}['\"]",
 		Severity:      "alta",
 		CWE:           "CWE-312",
+		ID:            "Insider-CORE6",
 	},
 	{
 		Description:   "Arquivo contém informação sensível escrita diretamente, como nomes de usuário, senhas, chaves , etc.",
@@ -52,6 +58,7 @@ var core []Rule = []Rule{
 		ExactMatch:    "amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
 		Severity:      "alta",
 		CWE:           "CWE-312",
+		ID:            "Insider-CORE7",
 	},
 	{
 		Description:   "Chave de API generica. Arquivo contém informação sensível escrita diretamente, como nomes de usuário, senhas, chaves , etc.",
@@ -59,5 +66,6 @@ var core []Rule = []Rule{
 		ExactMatch:    "(?i)api_key(.{0,20})?['\"][0-9a-zA-Z]{32,45}['\"]",
 		Severity:      "alta",
 		CWE:           "CWE-312",
+		ID:            "Insider-CORE8",
 	},
 }

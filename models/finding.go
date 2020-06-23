@@ -8,6 +8,7 @@ type Info struct {
 	Severity         string `json:"severity"`
 	Description      string `json:"description"`
 	Recomendation    string `json:"recomendation"`
+	RuleId			 string `json:"ID"`
 }
 
 // Finding represents a issue found in the source code

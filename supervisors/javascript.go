@@ -12,7 +12,7 @@ import (
 func RunJSSourceCodeAnalysis(codeInfo SourceCodeInfo) error {
 	log.Println("Starting JavaScript source code analysis")
 
-	report := models.Report{}
+	report := models.SASTReport{}
 
 	err := analyzers.AnalyzeJSSourceCode(codeInfo.PhysicalPath, &report)
 

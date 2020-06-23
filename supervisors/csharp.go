@@ -12,7 +12,7 @@ import (
 func RunCSharpSourceCodeAnalysis(codeInfo SourceCodeInfo) error {
 	log.Println("Starting C# source code analysis")
 
-	report := models.Report{}
+	report := models.SASTReport{}
 
 	err := analyzers.AnalyzeCSharpSourceCode(codeInfo.PhysicalPath, &report)
 

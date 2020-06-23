@@ -29,6 +29,7 @@ func ConvertFindingToReport(filename, displayName string, finding models.Finding
 		Method:           finding.Sample,
 		Column:           finding.Column,
 		FileName:         formattedClass,
+		RuleId:			  finding.Info.RuleId,
 		CWE:              finding.Info.CWE,
 		Severity:         finding.Info.Severity,
 		LongMessage:      finding.Info.Description,

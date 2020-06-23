@@ -116,8 +116,10 @@ func runSingleRule(
 	rawExpression string,
 	info models.Info,
 	rule lexer.Rule) (findings []models.Finding, isEmptyMatch bool) {
+
 	isEmptyMatch = false
 	expression := regexp.MustCompile(rawExpression)
+	info.RuleId = rule.ID
 
 	if rule.IsBinaryFileRule {
 		if expression.MatchString(fileInput.Content) {

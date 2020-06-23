@@ -11,7 +11,7 @@ import (
 	"github.com/insidersec/insider/models"
 )
 
-func AnalyzeCSharpSourceCode(dirname string, report *models.Report) error {
+func AnalyzeCSharpSourceCode(dirname string, report *models.SASTReport) error {
 	files, rules, err := LoadsFilesAndRules(dirname, "csharp")
 
 	if err != nil {

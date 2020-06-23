@@ -7,6 +7,7 @@ var android []Rule = []Rule{
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		Severity:      "alta",
 		CWE:           "CWE-327",
+		ID:            "Insider-AND1",
 	},
 	{
 		ExactMatch:    "Cipher\\.getInstance\\(\\s*\".+/ECB/.+\\)",
@@ -14,6 +15,7 @@ var android []Rule = []Rule{
 		Description:   "DES é um algoritmo de hash considerado fraco e pode causar colisões de hash.",
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		CWE:           "CWE-327",
+		ID:            "Insider-AND2",
 	},
 	{
 		ExactMatch:    "Cipher\\.getInstance\\(\\s*\"AES/.+/.+\\)",
@@ -21,6 +23,7 @@ var android []Rule = []Rule{
 		Description:   "Uso de criptografia fraca para armazenamento de informação sensível.",
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		CWE:           "CWE-326",
+		ID:            "Insider-AND3",
 	},
 	{
 		ExactMatch:    "Cipher\\.getInstance\\(\\s*\".+/GCM/.+\\)",
@@ -28,12 +31,14 @@ var android []Rule = []Rule{
 		Description:   "A aplicação usa GCM como 'block mode' do algoritmo de criptografia. GCM é considerado um algoritmo criptográfico fraco, pois como ele somente incrementa em 1 o valor do IV, é facil prever as chaves por bloco com um numero suficiente de mensagens criptografadas com a mesma chave e/ou IV.",
 		Recomendation: "É sempre recomendado utilizar CBC (Cipher Block Chaining) pois ele oferece mais segurança de que o IV sera bem utilizado e também é importante adotar algum tipo de 'salt', para que a hash fique mais segura.",
 		CWE:           "CWE-326",
+		ID:            "Insider-AND4",
 	},
 	{
 		ExactMatch:  "Cipher\\.getInstance\\(\\s*\"RSA/.+/NoPadding",
 		Severity:    "alta",
 		Description: "Essa aplicação utiliza criptografia RSA sem OAEP Padding. O padding previne alguns tipos de ataque, que utilizariam a falta de padding como vetor de ataque.",
 		CWE:         "CWE-780",
+		ID:          "Insider-AND5",
 	},
 	{
 		IsAndMatch: true,
@@ -44,6 +49,7 @@ var android []Rule = []Rule{
 		Severity:    "alta",
 		Description: "Implementação insegura de SSL. Confiar em qualquer certificado ou aceitar certificados auto-assinados podem causar uma séria brecha de segurança, tornando a aplicação vulnerável a ataques MITM (Man In The Middle).",
 		CWE:         "CWE-295",
+		ID:          "Insider-AND6",
 	},
 	{
 		IsAndMatch: true,
@@ -54,6 +60,7 @@ var android []Rule = []Rule{
 		Description: "A WebView carrega arquivos do armazenamento externo. Arquivos do armazenamento externo podem ser modificados por qualquer aplicação.",
 		Severity:    "alta",
 		CWE:         "CWE-919",
+		ID:          "Insider-AND7",
 	},
 	{
 		ExactMatch:    "getInstance(\"md4\")|getInstance(\"rc2\")|getInstance(\"rc4\")|getInstance(\"RC4\")|getInstance(\"RC2\")|getInstance(\"MD4\")",
@@ -61,6 +68,7 @@ var android []Rule = []Rule{
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		Severity:      "alta",
 		CWE:           "CWE-327",
+		ID:            "Insider-AND8",
 	},
 	{
 		ExactMatch:    "MessageDigest\\.getInstance\\(\"*MD5\"*\\)|MessageDigest\\.getInstance\\(\"*md5\"*\\)|DigestUtils\\.md5\\(",
@@ -68,6 +76,7 @@ var android []Rule = []Rule{
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		Severity:      "alta",
 		CWE:           "CWE-327",
+		ID:            "Insider-AND9",
 	},
 	{
 		ExactMatch:    "MessageDigest\\.getInstance\\(\"*SHA-1\"*\\)|MessageDigest\\.getInstance\\(\"*sha-1\"*\\)|DigestUtils\\.sha\\(",
@@ -75,6 +84,7 @@ var android []Rule = []Rule{
 		Recomendation: "É sempre recomendado utilizar alguma CHF (Cryptographic Hash Function), que é matematicamente forte e não reversível. SHA512 seria a hash mais recomendada para armazenamento da senha e também é importante adotar algum tipo de Salt, para que a Hash fique mais segura.",
 		Severity:      "alta",
 		CWE:           "CWE-327",
+		ID:            "Insider-AND10",
 	},
 	{
 		ExactMatch:    "java\\.util\\.Random",
@@ -82,12 +92,14 @@ var android []Rule = []Rule{
 		Recomendation: "Para uma implementação melhor seria utilizar o pacote java.util.SecureRandom",
 		Severity:      "alta",
 		CWE:           "CWE-330",
+		ID:            "Insider-AND11",
 	},
 	{
 		ExactMatch:  "setFilterTouchesWhenObscured\\(true\\)",
 		Description: "A aplicação tem a capacidade de previnir ataques do tipo tapjacking.",
 		Severity:    "info",
 		CWE:         "CWE-1021",
+		ID:          "Insider-AND12",
 	},
 	{
 		IsAndMatch: true,
@@ -98,6 +110,7 @@ var android []Rule = []Rule{
 		Description: "Implementação de WebView insegura. Execução de código controlado pelo usuário é uma brecha de segurança.",
 		Severity:    "info",
 		CWE:         "CWE-749",
+		ID:          "Insider-AND13",
 	},
 	{
 		IsAndMatch: true,
@@ -109,6 +122,7 @@ var android []Rule = []Rule{
 		Recomendation: "Sempre validar os inputs de usuário antes que o servidor execute a query e rejeitar requisições que contenham caracteres que não sejam estritamente necessários.",
 		Severity:      "alta",
 		CWE:           "CWE-89",
+		ID:            "Insider-AND14",
 	},
 	{
 		IsAndMatch: true,
@@ -118,6 +132,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Este App detecta Servidores Frida.",
 		Severity:    "info",
+		ID:          "Insider-AND15",
 	},
 	{
 		IsAndMatch: true,
@@ -127,11 +142,13 @@ var android []Rule = []Rule{
 		},
 		Description: "Este App uma biblioteca de SSL Pinning (org.thoughtcrime.ssl.pinning) para prevenir ataques MITM em canais seguros de comunicação.",
 		Severity:    "info",
+		ID:          "Insider-AND16",
 	},
 	{
 		ExactMatch:  "getWindow\\(.*\\)\\.\\(set|add\\)Flags\\(.*\\.FLAG_SECURE",
 		Description: "Este App tem a capacidade de prevenir Screenshots de Aplicativos em Segundo Plano.",
 		Severity:    "info",
+		ID:          "Insider-AND17",
 	},
 	{
 		IsAndMatch: true,
@@ -141,6 +158,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard Debug Detection que detecta se o App é depurável ou não.",
 		Severity:    "info",
+		ID:          "Insider-AND18",
 	},
 	{
 		IsAndMatch: true,
@@ -150,6 +168,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard Debugger Detection.",
 		Severity:    "info",
+		ID:          "Insider-AND19",
 	},
 	{
 		IsAndMatch: true,
@@ -159,6 +178,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard Emulator Detection.",
 		Severity:    "info",
+		ID:          "Insider-AND20",
 	},
 	{
 		IsAndMatch: true,
@@ -168,6 +188,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard que detecta se App está assinado com uma chave de depuração ou não.",
 		Severity:    "info",
+		ID:          "Insider-AND21",
 	},
 	{
 		IsAndMatch: true,
@@ -177,6 +198,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard Root Detection.",
 		Severity:    "info",
+		ID:          "Insider-AND22",
 	},
 	{
 		IsAndMatch: true,
@@ -186,6 +208,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard App Tamper Detection.",
 		Severity:    "info",
+		ID:          "Insider-AND23",
 	},
 	{
 		IsAndMatch: true,
@@ -195,6 +218,7 @@ var android []Rule = []Rule{
 		},
 		Description: "Identificado código do DexGuard Signer Certificate Tamper Detection.",
 		Severity:    "info",
+		ID:          "Insider-AND24",
 	},
 	{
 		IsAndMatch: true,
@@ -204,10 +228,12 @@ var android []Rule = []Rule{
 		},
 		Description: "Este App pode estar usando um pacote assinado para detectar modificações.",
 		Severity:    "info",
+		ID:          "Insider-AND25",
 	},
 	{
 		ExactMatch:  "com\\.google\\.android\\.gms\\.safetynet\\.SafetyNetApi",
 		Description: "Este App usa API SafetyNet.",
 		Severity:    "info",
+		ID:          "Insider-AND26",
 	},
 }

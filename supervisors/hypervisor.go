@@ -3,10 +3,12 @@ package supervisors
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/insidersec/insider/models"
 )
@@ -15,6 +17,8 @@ import (
 const ResultFolderName string = "results"
 const resultJSONFilename string = "report.json"
 const resultHTMLFilename string = "report.html"
+const resultSonarQubeJSONFilename string = "sonarqube.json"
+
 
 // SourceCodeInfo holds information about the received code to analyze
 type SourceCodeInfo struct {
@@ -132,12 +136,102 @@ func exportJSONReport(bReport []byte) error {
 	return nil
 }
 
+func exportSonarQubeJSONReport(findings []models.Vulnerability) error {
+	reportJSON := filepath.Join(ResultFolderName, resultSonarQubeJSONFilename)
+
+	jsonFile, err := os.OpenFile(reportJSON, os.O_CREATE|os.O_WRONLY, 0600)
+
+	if err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	defer jsonFile.Close()
+
+	// Makes sure we start to write in the beginning of the file
+	// and overwriting anything that was previously inside the file
+	err = jsonFile.Truncate(0)
+
+	if err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	_, err = jsonFile.Seek(0, 0)
+
+	if err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	var sonarIssues []models.SonarQubeIssue
+
+	for _, vul := range findings {
+
+		fmt.Println(vul)
+
+		txtRange := models.TextRange{
+			StartLine:   vul.Line,
+			StartColumn: vul.Column,
+		}
+		
+		location := models.Location{
+			Message:   vul.LongMessage,
+			FilePath:  vul.Class,
+			TextRange: txtRange,
+		}
+		issue := models.SonarQubeIssue{
+			EngineID:           "insidersec",
+			RuleID:             vul.RuleId,
+			Severity:           strings.ToUpper(vul.Severity),
+			Type:               "VULNERABILITY",
+			PrimaryLocation:    location,
+		}
+		sonarIssues = append(sonarIssues, issue)
+	}
+
+	reportSonarqube := models.SonarQubeReport{
+		SonarQubeIssues: sonarIssues,
+	}
+
+	bReport, err := json.Marshal(reportSonarqube)
+	if err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	var outputBuffer bytes.Buffer
+
+	// This will format the output according to the
+	// JSON specification to be easier to read by a human
+
+	// - the first parameter is a pointer to the output buffer
+	// - the second one is the actual byte slice with the data
+	// - the third is a prefix to each line in the input buffer
+	// - the fourth is the actual character to be used in identation
+	//    here we're using space for compatibility
+	if err := json.Indent(&outputBuffer, bReport, "", " "); err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	bytesWritten, err := jsonFile.Write(outputBuffer.Bytes())
+
+	if err != nil {
+		log.Println("Problems writing the SonarQube report to the JSON file.")
+		return err
+	}
+
+	log.Printf("Saved SonarQube report's JSON with %f MB", float64(bytesWritten)/(1024*1024))
+	return nil
+}
+
 // reportResult will handle the logic to upload the final report about the source code
 // being analyzed to somewhere it can be feed into other tools or used by hand.
 // By default, in development environment it will save the report to a file in the
 // current directory with the name of report.json
 func reportResult(codeInfo SourceCodeInfo, findings []models.Vulnerability, bReport []byte) error {
-	log.Println("Writting report...")
+	log.Println("Writing report...")
 
 	err := exportJSONReport(bReport)
 
@@ -146,6 +240,12 @@ func reportResult(codeInfo SourceCodeInfo, findings []models.Vulnerability, bRep
 	}
 
 	err = exportHTMLReport(findings)
+
+	if err != nil {
+		return err
+	}
+
+	err = exportSonarQubeJSONReport(findings)
 
 	if err != nil {
 		return err

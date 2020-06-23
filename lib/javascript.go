@@ -11,7 +11,7 @@ import (
 	"github.com/insidersec/insider/models"
 )
 
-func AnalyzeJSSourceCode(dirname string, report *models.Report) error {
+func AnalyzeJSSourceCode(dirname string, report *models.SASTReport) error {
 	files, rules, err := LoadsFilesAndRules(dirname, "javascript")
 
 	if err != nil {

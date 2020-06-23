@@ -78,6 +78,7 @@ type Rule struct {
 	Recomendation    string
 	Severity         string
 	OWASPReferenceID string
+	ID               string
 }
 
 // LoadRules loads the Ruleset for the given

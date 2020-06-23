@@ -1,11 +1,11 @@
 package lexer
 
 import (
-    "testing"
+	"testing"
 )
 
 func TestFindContainingDeclarationInJava(t *testing.T) {
-    testClass := `package com.synerise.sdk.core.persistence.sqllite;
+	testClass := `package com.synerise.sdk.core.persistence.sqllite;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -36,23 +36,23 @@ public class CoreDbHelper extends SQLiteOpenHelper {
         sQLiteDatabase.execSQL(ClientTable.Queries.DROP_TABLE);
     }
 }`
-    fakeFindingIndex := 819 // sQLiteDatabase. OBS.: The first one
-    inputFile := NewInputFile("test", "test/dbHelper.java", []byte(testClass))
+	fakeFindingIndex := 819 // sQLiteDatabase. OBS.: The first one
+	inputFile := NewInputFile("test", "test/dbHelper.java", []byte(testClass))
 
-    declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
+	declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
 
-    if declarationFinding == "" {
-        t.Fatal("Should have returned a non-empty string")
-    }
+	if declarationFinding == "" {
+		t.Fatal("Should have returned a non-empty string")
+	}
 
-    if declarationFinding != "public void onCreate(SQLiteDatabase sQLiteDatabase) {" {
-        t.Logf("Found: %s", declarationFinding)
-        t.Fatal("Found wrong declaration")
-    }
+	if declarationFinding != "public void onCreate(SQLiteDatabase sQLiteDatabase) {" {
+		t.Logf("Found: %s", declarationFinding)
+		t.Fatal("Found wrong declaration")
+	}
 }
 
 func TestFindContainingDeclarationInSwift(t *testing.T) {
-    testClass := `//
+	testClass := `//
 //  AccountRouter.swift
 
 import Alamofire
@@ -117,23 +117,23 @@ enum AccountRouter: URLRequestConvertible {
     }
 }
 `
-    fakeFindingIndex := 925 // let url = URL(string: Environment.rootURL.
-    inputFile := NewInputFile("test", "test/dbHelper.java", []byte(testClass))
+	fakeFindingIndex := 925 // let url = URL(string: Environment.rootURL.
+	inputFile := NewInputFile("test", "test/dbHelper.java", []byte(testClass))
 
-    declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
+	declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
 
-    if declarationFinding == "" {
-        t.Fatal("Should have returned a non-empty string")
-    }
+	if declarationFinding == "" {
+		t.Fatal("Should have returned a non-empty string")
+	}
 
-    if declarationFinding != "func asURLRequest() throws -> URLRequest {" {
-        t.Logf("Found: %s", declarationFinding)
-        t.Fatal("Found wrong declaration")
-    }
+	if declarationFinding != "func asURLRequest() throws -> URLRequest {" {
+		t.Logf("Found: %s", declarationFinding)
+		t.Fatal("Found wrong declaration")
+	}
 }
 
 func TestFindContainingDeclarationInSwiftShouldFailReturningAnEmptyString(t *testing.T) {
-    testClass := `import Alamofire
+	testClass := `import Alamofire
 
 enum AccountRouter: URLRequestConvertible {
     
@@ -195,16 +195,16 @@ enum AccountRouter: URLRequestConvertible {
     }
 }
 `
-    fakeFindingIndex := 581 // return "insec-api/v1/accounts/movements/\(params)"
-    inputFile := NewInputFile("test", "test/AccountRouter.swift", []byte(testClass))
+	fakeFindingIndex := 581 // return "insec-api/v1/accounts/movements/\(params)"
+	inputFile := NewInputFile("test", "test/AccountRouter.swift", []byte(testClass))
 
-    declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
+	declarationFinding := inputFile.FindContainingDeclaration(fakeFindingIndex)
 
-    if declarationFinding != "" {
-        t.Fatal("Should have returned a empty string")
-    }
+	if declarationFinding != "" {
+		t.Fatal("Should have returned a empty string")
+	}
 
-    if declarationFinding == "func asURLRequest() throws -> URLRequest {" {
-        t.Fatal("Found a declaration where it shouldn't")
-    }
+	if declarationFinding == "func asURLRequest() throws -> URLRequest {" {
+		t.Fatal("Found a declaration where it shouldn't")
+	}
 }
