@@ -177,7 +177,7 @@ func exportSonarQubeJSONReport(findings []models.Vulnerability) error {
 		
 		location := models.Location{
 			Message:   vul.LongMessage,
-			FilePath:  vul.Class,
+			FilePath:  vul.Class[1:],
 			TextRange: txtRange,
 		}
 		issue := models.SonarQubeIssue{
