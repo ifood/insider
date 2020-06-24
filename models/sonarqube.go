@@ -2,9 +2,9 @@ package models
 
 type TextRange struct {
 	StartLine   int `json:"startLine"`
-	EndLine     int `json:"endLine"`
+	EndLine     int `json:"endLine,omitempty"`
 	StartColumn int `json:"startColumn"`
-	EndColumn   int `json:"endColumn"`
+	EndColumn   int `json:"endColumn,omitempty"`
 }
 type Location struct {
 	Message   string    `json:"message"`
