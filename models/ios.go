@@ -25,9 +25,6 @@ type IOSPermission struct {
 // IOSReport is the representation of the iOS report
 type IOSReport struct {
 	Permissions     []IOSPermission `json:"permissions"`
-
 	IOSInfo         IOSInfo         `json:"ios"`
-
-
-	*Report
+	Report
 }

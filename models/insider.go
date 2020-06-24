@@ -36,7 +36,7 @@ type SASTInfo struct {
 // report generated
 type SASTReport struct {
 	Info            SASTInfo        `json:"information,omitempty"`
-	*Report
+	Report
 }
 
 type Report struct {

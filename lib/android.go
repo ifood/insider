@@ -36,9 +36,6 @@ func AnalyzeAndroidSource(dirname string, report *models.AndroidReport) error {
 
 	report.AndroidInfo.Size = fmt.Sprintf("%s MB", strconv.Itoa(appSize))
 
-	var vulnerabilities []models.Vulnerability
-
-
 	for _, file := range files {
 		fileContent, err := ioutil.ReadFile(filepath.Clean(file))
 
@@ -58,11 +55,9 @@ func AnalyzeAndroidSource(dirname string, report *models.AndroidReport) error {
 				fileForAnalyze.DisplayName,
 				finding,
 			)
-			 vulnerabilities = append(vulnerabilities, vulnerability)
+			report.Vulnerabilities = append(report.Vulnerabilities, vulnerability)
 		}
 	}
-
-	report.Vulnerabilities = vulnerabilities
 
 	log.Printf("Scanned %d lines", report.AndroidInfo.NumberOfLines)
 
