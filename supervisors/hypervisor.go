@@ -4,13 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/insidersec/insider/models"
 	"html/template"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
-
-	"github.com/insidersec/insider/models"
 )
 
 // ResultFolderName is the default output folder for reports
@@ -136,7 +134,22 @@ func exportJSONReport(bReport []byte) error {
 	return nil
 }
 
+func getSonarSeverity(s string) string {
+	switch s {
+	case "info":
+		return "MINOR"
+	case "média":
+		return "MAJOR"
+	case "alta":
+		return "CRITICAL"
+	default:
+		return "INFO"
+	}
+}
+
 func exportSonarQubeJSONReport(findings []models.Vulnerability) error {
+
+
 	reportJSON := filepath.Join(ResultFolderName, resultSonarQubeJSONFilename)
 
 	jsonFile, err := os.OpenFile(reportJSON, os.O_CREATE|os.O_WRONLY, 0600)
@@ -183,7 +196,7 @@ func exportSonarQubeJSONReport(findings []models.Vulnerability) error {
 		issue := models.SonarQubeIssue{
 			EngineID:           "insidersec",
 			RuleID:             vul.RuleId,
-			Severity:           strings.ToUpper(vul.Severity),
+			Severity:           getSonarSeverity(vul.Severity),
 			Type:               "VULNERABILITY",
 			PrimaryLocation:    location,
 		}
